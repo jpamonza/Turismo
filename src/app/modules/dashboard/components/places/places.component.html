@@ -1,0 +1,10 @@
+<div>
+  {{ places$ | async }}
+
+  <div *ngIf="(places$ | async)?.results">
+    <div *ngFor="let result of (places$ | async).results">
+      <span>Nombre: {{ result.name }} </span>
+      <span>Ubicacion: {{ result.location.formatted_address }}</span>
+    </div>
+  </div>
+</div>
