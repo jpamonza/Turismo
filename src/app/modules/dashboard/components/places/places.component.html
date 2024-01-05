@@ -1,10 +1,28 @@
 <div>
-  {{ places$ | async }}
-
-  <div *ngIf="(places$ | async)?.results">
-    <div *ngFor="let result of (places$ | async).results">
-      <span>Nombre: {{ result.name }} </span>
-      <span>Ubicacion: {{ result.location.formatted_address }}</span>
+  <div class="row container">
+    <div class="col-2"></div>
+    <div class="col">
+      <div class="row">
+        <div
+          class="col-4 mb-2 d-flex align-items-stretch"
+          *ngFor="let place of places$ | async"
+        >
+          <div class="card w-100">
+            <div class="card-body">
+              <div>
+                <app-imagen-mapa
+                  [lngLat]="[
+                    place.geocodes.main.longitude,
+                    place.geocodes.main.latitude
+                  ]"
+                ></app-imagen-mapa>
+              </div>
+              <h5 class="card-title">{{ place.name }}</h5>
+              <p class="card-text">{{ place.location.formatted_address }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
