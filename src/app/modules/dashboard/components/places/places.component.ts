@@ -29,6 +29,5 @@ export class PlacesComponent implements OnInit {
 
   public actualizarResultados(busqueda: FormularioBusqueda): void {
     this.places$ = this.placesService.search(busqueda);
-    this.places$.subscribe();
   }
 }
