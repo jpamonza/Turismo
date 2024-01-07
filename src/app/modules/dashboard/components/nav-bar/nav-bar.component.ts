@@ -8,6 +8,8 @@ import {
 import { PlacesService } from '../../service/places.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 export interface FormularioBusqueda {
   query: string;
@@ -35,7 +37,11 @@ export class NavBarComponent {
     { label: 'Popularity', value: 'Popularity' },
   ];
 
-  public constructor(private fb: FormBuilder) {
+  public constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.formularioReactivo = this.fb.group(
       {
         query: [''],
@@ -56,6 +62,11 @@ export class NavBarComponent {
 
   public establecerOrden(opcionOrden: string): void {
     this.formularioReactivo.get('sort').setValue(opcionOrden);
+  }
+
+  public logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 
   private validarCampos(formulario: FormGroup): ValidationErrors {
